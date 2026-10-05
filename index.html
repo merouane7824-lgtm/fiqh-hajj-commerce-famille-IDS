@@ -2,13 +2,15 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A1A5C">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fiqh Hajj">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="stylesheet" href="fonts.css">
 
 <title>Le Fiqh — Hajj, Commerce et Famille</title>
 <style>
@@ -541,6 +543,13 @@ html[data-theme] .zk-sub-res.off{background:var(--bg2);border-color:var(--line)}
 </style>
 <script>(function(){var t;try{t=localStorage.getItem('ids-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
+<style>
+/* iPhone/iPad en plein écran : barre d'état, encoche et barre d'accueil */
+.topbar{padding-top:calc(10px + env(safe-area-inset-top));
+  padding-left:calc(14px + env(safe-area-inset-left));padding-right:calc(14px + env(safe-area-inset-right));
+  margin-left:calc(-1 * env(safe-area-inset-left));margin-right:calc(-1 * env(safe-area-inset-right))}
+body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);padding-bottom:env(safe-area-inset-bottom)}
+</style>
 </head>
 <body>
 
@@ -2512,8 +2521,8 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-go]'
 /* ============ PROGRESSION ============ */
 var FICHES=['s0','h1','h2','h3','h4','h5','h6','h7','h8','h9','h10','c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','f1','f2','f3','f4','f5','f6','f7','f8','f9','f10','f11','f12','f13','f14','f15'];
 var done={};
-function pLoad(){try{done=JSON.parse(localStorage.getItem('fiqh_prog')||'{}')||{}}catch(e){done={}}}
-function pSave(){try{localStorage.setItem('fiqh_prog',JSON.stringify(done))}catch(e){}}
+function pLoad(){try{var s=localStorage.getItem('fiqh_hajj_prog');if(s===null&&(navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)))s=localStorage.getItem('fiqh_prog');done=JSON.parse(s||'{}')||{}}catch(e){done={}}}
+function pSave(){try{localStorage.setItem('fiqh_hajj_prog',JSON.stringify(done))}catch(e){}}
 function pRender(){
   var n=FICHES.filter(function(f){return done[f]}).length;
   document.getElementById('progN').textContent=n+' / '+FICHES.length;
